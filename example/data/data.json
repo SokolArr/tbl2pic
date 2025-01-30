@@ -31,13 +31,13 @@
             "col_limit": 100,
             "row_limit": 20
         },
-        "cols": [{"colId": 0, "maxWidth": 400, "minWidth": 100, "maxHeight": 100, "minHeight": 100, "fontSize": 100, "textAlign": "center"},
-                {"colId": 1, "maxWidth": 400, "minWidth": 150, "maxHeight": 100, "minHeight": 100, "fontSize": 100, "textAlign": "left"},
-                {"colId": 2, "maxWidth": 400, "minWidth": 80,  "maxHeight": 100, "minHeight": 100, "fontSize": 100, "textAlign": "center"},
-                {"colId": 3, "maxWidth": 400, "minWidth": 80,  "maxHeight": 100, "minHeight": 100, "fontSize": 100, "textAlign": "center"},
-                {"colId": 4, "maxWidth": 400, "minWidth": 100, "maxHeight": 100, "minHeight": 100, "fontSize": 100, "textAlign": "center"},
-                {"colId": 5, "maxWidth": 400, "minWidth": 120, "maxHeight": 100, "minHeight": 100, "fontSize": 100, "textAlign": "center"},
-                {"colId": 6, "maxWidth": 400, "minWidth": 200, "maxHeight": 100, "minHeight": 100, "fontSize": 100, "textAlign": "left"}
+        "cols": [{"colId": 0, "maxWidth": 400, "minWidth": 100, "textAlign": "center"},
+                {"colId": 1, "maxWidth": 400, "minWidth": 150, "textAlign": "left"},
+                {"colId": 2, "maxWidth": 400, "minWidth": 80,  "textAlign": "center"},
+                {"colId": 3, "maxWidth": 400, "minWidth": 80,  "textAlign": "center"},
+                {"colId": 4, "maxWidth": 400, "minWidth": 100, "textAlign": "center"},
+                {"colId": 5, "maxWidth": 400, "minWidth": 120, "textAlign": "center"},
+                {"colId": 6, "maxWidth": 400, "minWidth": 200, "textAlign": "left"}
         ]
     },
     "data": [["1", "MybestNickName", "14/88", "1.1", "90h", "1000m", "TOPC 52% (4449 hits)"],

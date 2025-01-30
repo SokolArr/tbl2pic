@@ -156,7 +156,9 @@ class TableImageGenerator:
         y = 0
         for col_id, cell_data in enumerate(self.cols):
             cell_width = self.cells_content_width[col_id]
-
+            text_align = self.settings.cols_settings[col_id].get(
+                "textAlign", self.settings.cell_text_align
+            )
             self._draw_rectangle(
                 x,
                 y,
@@ -172,7 +174,7 @@ class TableImageGenerator:
                 self.settings.cell_height,
                 str(cell_data).upper(),
                 self.settings.cell_padding,
-                self.settings.header_cell_text_align,
+                text_align,
             )
             x += cell_width
 
@@ -183,7 +185,9 @@ class TableImageGenerator:
             for col_id, cell_data in enumerate(row_data):
                 cell_width = self.cells_content_width[col_id]
                 y = (row + 1) * self.settings.cell_height
-
+                text_align = self.settings.cols_settings[col_id].get(
+                    "textAlign", self.settings.cell_text_align
+                )
                 self._draw_rectangle(
                     x,
                     y,
@@ -199,7 +203,7 @@ class TableImageGenerator:
                     self.settings.cell_height,
                     str(cell_data),
                     self.settings.cell_padding,
-                    self.settings.cell_text_align,
+                    text_align,
                 )
                 x += cell_width
 
