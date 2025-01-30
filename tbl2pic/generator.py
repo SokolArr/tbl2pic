@@ -12,18 +12,18 @@ class TableImageGenerator:
     def __init__(self, settings: TableSettings, data: Optional[dict] = None):
         self.data = data if data else {}
         self.settings: TableSettings = settings
+        self.is_adaptive_width = False if settings.cell_width else True
 
         self.table_name: str = None
         self.cols: list[str] = None
         self.rows: list[list] = None
-        self.data_settings: dict = None
 
         self.image = None
         self.draw = None
         self.background = None
         self.table_image = None
 
-        self.cells_content_len = None
+        self.cells_content_width = None
 
         try:
             self.font = ImageFont.truetype(self.settings.font, self.settings.font_size)
@@ -38,7 +38,7 @@ class TableImageGenerator:
         self.letter_width = self.letter_size[2] - self.letter_size[0]
         self.letter_height = self.letter_size[3] - self.letter_size[1]
 
-    def _read_from_json(self, fp: str):
+    def read_data_from_json(self, fp: str):
         try:
             json_data = {}
             with open(fp, "r") as file:
@@ -47,9 +47,8 @@ class TableImageGenerator:
             self.table_name = json_data.get("tableName")
             self.cols = json_data.get("header")[: self.settings.col_limit]
             self.rows = json_data.get("data")[: self.settings.row_limit]
-            self.data_settings = json_data.get("settings")
 
-            self.cells_content_len = self._get_cells_content_len()
+            self.cells_content_width = self._get_cells_content_width()
 
         except FileNotFoundError:
             logger.warning(f"Файл {fp} не найден.")
@@ -60,8 +59,8 @@ class TableImageGenerator:
         rows_n = len(self.rows) + 1
 
         table_width = sum(
-            self.cells_content_len[idx] * self.letter_width
-            for idx in range(len(self.cells_content_len))
+            self.cells_content_width[idx]
+            for idx in range(len(self.cells_content_width))
         )
         table_height = self.settings.cell_height * rows_n
 
@@ -127,7 +126,7 @@ class TableImageGenerator:
             padding_right = self.settings.cell_padding[2]
             padding_bottom = self.settings.cell_padding[3]
 
-            cell_width = self.cells_content_len[col_id] * self.letter_width
+            cell_width = self.cells_content_width[col_id]
 
             self._draw_rectangle(
                 x,
@@ -181,7 +180,7 @@ class TableImageGenerator:
                 padding_right = self.settings.cell_padding[2]
                 padding_bottom = self.settings.cell_padding[3]
 
-                cell_width = self.cells_content_len[col_id] * self.letter_width
+                cell_width = self.cells_content_width[col_id]
                 y = (row + 1) * self.settings.cell_height
 
                 self._draw_rectangle(
@@ -244,13 +243,33 @@ class TableImageGenerator:
         self._composite_images()
         self.save_image(output_path)
 
-    def _get_cells_content_len(self) -> dict:
+    def _get_cells_content_width(self) -> dict:
         rows: list[list] = self.rows + [self.cols]
 
-        cells_content_len = {i: 0 for i in range(len(self.cols))}
-        for row in rows:
-            for col_index, cell_data in enumerate(row):
-                cell_length = len(str(cell_data))
-                if cell_length > cells_content_len[col_index]:
-                    cells_content_len[col_index] = cell_length
-        return cells_content_len
+        if self.is_adaptive_width:
+            cells_content_width = [0] * len(self.cols)
+
+            for row in rows:
+                for col_index, cell_data in enumerate(row):
+                    cell_length = len(str(cell_data))
+                    if cell_length > cells_content_width[col_index]:
+                        cells_content_width[col_index] = cell_length
+
+            for i in range(len(cells_content_width)):
+                cell_width = cells_content_width[i] * self.letter_width
+                max_cell_width = self.settings.cols_settings[i].get("maxWidth")
+                min_cell_width = self.settings.cols_settings[i].get("minWidth")
+                if max_cell_width and min_cell_width:
+                    if cell_width >= max_cell_width:
+                        cells_content_width[i] = max_cell_width
+                    elif cell_width <= min_cell_width:
+                        cells_content_width[i] = min_cell_width
+                    else:
+                        cells_content_width[i] *= self.letter_width
+                else:
+                    cells_content_width[i] *= self.letter_width
+        else:
+            cells_content_width = [self.settings.cell_width] * len(self.cols)
+        print(self.is_adaptive_width)
+
+        return cells_content_width
