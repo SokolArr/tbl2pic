@@ -97,7 +97,7 @@ settings = TableSettings(
     font_size=20,
     background_image="example/img/bg.jpg",
     table_margin=40,
-    cols_settings=[{"maxWidth": 150, "minWidth": 50}]
+    cols_settings=[{"colId": 0, "maxWidth": 400, "minWidth": 100, "textAlign": "center"}]
 )
 
 # Or load from JSON
