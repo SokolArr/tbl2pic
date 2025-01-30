@@ -125,53 +125,62 @@ generator.generate_table_image("output_table.png")
 ### **Settings JSON Example**
 ```json
 {
-  "settings": {
-    "header": {
-      "header_color": [255, 255, 255, 255],
-      "header_cell_padding": [10, 10, 10, 10],
-      "header_cell_text_align": "center"
-    },
-    "cell": {
-      "cell_width": null,
-      "cell_height": 50,
-      "cell_color": [255, 255, 255, 255],
-      "cell_padding": [10, 0, 10, 0],
-      "cell_text_align": "left"
-    },
-    "font": {
-      "font_size": 20,
-      "font": "example/font/shrift.ttf"
-    },
-    "background": {
-      "background_image": "example/img/bg.jpg",
-      "background_color": [255, 255, 255, 255]
-    },
-    "table": {
-      "table_margin": 40,
-      "table_border_color": [0, 0, 0, 255],
-      "table_border_thickness": 2
-    },
-    "limits": {
-      "col_limit": 100,
-      "row_limit": 20
-    },
-    "cols": [
-      {"maxWidth": 150, "minWidth": 50},
-      {"maxWidth": 200, "minWidth": 100}
-    ]
-  }
+    "settings": {
+        "header": {
+            "header_color": [255, 255, 255, 255],
+            "header_cell_padding": [10, 10, 10, 10],
+            "header_cell_text_align": "center"
+        },
+        "cell": {
+            "cell_width": null,
+            "cell_height": 50,
+            "cell_color": [255, 255, 255, 255],
+            "cell_padding": [10, 0, 10, 0],
+            "cell_text_align": "left"
+        },
+        "font": {
+            "font_size": 20,
+            "font": "example/font/shrift.ttf"
+        },
+        "background": {
+            "background_image": "example/img/bg.jpg",
+            "background_color": [255, 255, 255, 255]
+        },
+        "table": {
+            "table_margin": 40,
+            "table_border_color": [0, 0, 0, 255],
+            "table_border_thickness": 2
+        },
+        "limits": {
+            "col_limit": 100,
+            "row_limit": 20
+        },
+        "cols": [{"colId": 0, "maxWidth": 400, "minWidth": 100, "textAlign": "center"},
+                {"colId": 1, "maxWidth": 400, "minWidth": 150, "textAlign": "left"},
+                {"colId": 2, "maxWidth": 400, "minWidth": 80,  "textAlign": "center"},
+                {"colId": 3, "maxWidth": 400, "minWidth": 80,  "textAlign": "center"},
+                {"colId": 4, "maxWidth": 400, "minWidth": 100, "textAlign": "center"},
+                {"colId": 5, "maxWidth": 400, "minWidth": 120, "textAlign": "center"},
+                {"colId": 6, "maxWidth": 400, "minWidth": 200, "textAlign": "left"}
+        ]
+    }
 }
 ```
 
 ### **Data JSON Example**
 ```json
 {
-  "tableName": "Sample Table",
-  "header": ["Column 1", "Column 2", "Column 3"],
-  "data": [
-    ["Row 1, Cell 1", "Row 1, Cell 2", "Row 1, Cell 3"],
-    ["Row 2, Cell 1", "Row 2, Cell 2", "Row 2, Cell 3"]
-  ]
+    "tableName": "top 100 player stats",
+    "header": ["top", "player", "kills", "kd", "time", "long kill", "player stats"],
+    "data": [["1", "MybestNickName", "14/88", "1.1", "90h", "1000m", "TOPC 52% (4449 hits)"],
+        ["2", "GamingPro", "12/75", "1.0", "80h", "900m", "TOPC 48% (3999 hits)"],
+        ["3", "EpicPlayer", "10/60", "0.9", "70h", "800m", "TOPC 45% (3499 hits)"],
+        ["4", "CoolGuy", "9/55", "0.8", "65h", "750m", "TOPC 42% (3099 hits)"],
+        ["5", "FastFingers", "8/50", "0.7", "60h", "700m", "TOPC 40% (2799 hits)"],
+        ["6", "QuickDraw", "7/45", "0.6", "55h", "650m", "TOPC 38% (2499 hits)"],
+        ["7", "SharpShooter", "6/40", "0.5", "50h", "600m", "TOPC 35% (2199 hits)"],
+        ["8", "MasterMind", "5/35", "0.4", "45h", "550m", "TOPC 32% (1999 hits)"],
+        ["9", "RapidFire", "4/30", "0.3", "40h", "500m", "TOPC 30% (1799 hits)"]]
 }
 ```
 
