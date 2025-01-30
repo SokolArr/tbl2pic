@@ -123,8 +123,8 @@ class TableSettings:
             )
 
         except FileNotFoundError:
-            logger.warning(f"Файл {fp} не найден.")
+            logger.warning(f"File {fp} not found")
             return cls()
         except json.JSONDecodeError:
-            logger.error(f"Ошибка декодирования JSON в файле {fp}.")
+            logger.error(f"JSON decoding error in file {fp}.")
             return cls()

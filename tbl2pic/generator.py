@@ -1,6 +1,5 @@
 import json
 from PIL import Image, ImageDraw, ImageFont
-from typing import Optional
 import logging
 
 from .settings import TableSettings
@@ -9,29 +8,29 @@ logger = logging.getLogger(__name__)
 
 
 class TableImageGenerator:
-    def __init__(self, settings: TableSettings, data: Optional[dict] = None):
-        self.data = data if data else {}
+    def __init__(self, settings: TableSettings):
         self.settings: TableSettings = settings
         self.is_adaptive_width = False if settings.cell_width else True
 
+        # data
         self.table_name: str = None
         self.cols: list[str] = None
         self.rows: list[list] = None
 
+        # draw
         self.image = None
         self.draw = None
         self.background = None
         self.table_image = None
 
+        # tech data
         self.cells_content_width = None
 
         try:
             self.font = ImageFont.truetype(self.settings.font, self.settings.font_size)
-            logger.info(f"Шрифт загружен: {self.settings.font}.")
+            logger.info(f"Font loaded: {self.settings.font}.")
         except IOError:
-            logger.warning(
-                f"Шрифт {self.settings.font} не найден. Использую стандартный."
-            )
+            logger.warning(f"Font {self.settings.font} not found. Using default font.")
             self.font = ImageFont.load_default()
 
         self.letter_size = self._letter_size()
@@ -44,6 +43,7 @@ class TableImageGenerator:
             with open(fp, "r") as file:
                 json_data: dict = json.load(file)
 
+            self.data = json_data
             self.table_name = json_data.get("tableName")
             self.cols = json_data.get("header")[: self.settings.col_limit]
             self.rows = json_data.get("data")[: self.settings.row_limit]
@@ -51,9 +51,9 @@ class TableImageGenerator:
             self.cells_content_width = self._get_cells_content_width()
 
         except FileNotFoundError:
-            logger.warning(f"Файл {fp} не найден.")
+            logger.warning(f"File {fp} not found.")
         except json.JSONDecodeError:
-            logger.error(f"Ошибка декодирования JSON в файле {fp}.")
+            logger.error(f"JSON decoding error in file {fp}.")
 
     def create_image(self):
         rows_n = len(self.rows) + 1
@@ -70,24 +70,24 @@ class TableImageGenerator:
         if self.settings.background_image:
             try:
                 logger.debug(
-                    f"Попытка загрузить фоновое изображение: {self.settings.background_image}"
+                    f"Attempting to load background image: {self.settings.background_image}"
                 )
                 self.background = Image.open(self.settings.background_image).convert(
                     "RGBA"
                 )
                 self.background = self.background.resize((image_width, image_height))
                 logger.info(
-                    f"Фоновое изображение загружено: {self.settings.background_image}."
+                    f"Background image loaded: {self.settings.background_image}."
                 )
             except IOError:
                 logger.warning(
-                    f"Фоновое изображение {self.settings.background_image} не найдено"
+                    f"Background image {self.settings.background_image} not found."
                 )
                 self.background = Image.new(
                     "RGBA", (image_width, image_height), self.settings.background_color
                 )
         else:
-            logger.info("Фоновое изображение не указано")
+            logger.info("Background image not specified.")
             self.background = Image.new(
                 "RGBA", (image_width, image_height), self.settings.background_color
             )
@@ -232,16 +232,19 @@ class TableImageGenerator:
     def save_image(self, output_path="table.png"):
         if self.image is not None:
             self.image.save(output_path)
-            logger.info(f"Таблица сохранена в файл: {output_path}")
+            logger.info(f"Table saved to file: {output_path}")
         else:
-            logger.warning("Сначала создайте изображение.")
+            logger.warning("Create an image first.")
 
     def generate_table_image(self, output_path="table.png"):
-        self.create_image()
-        self.draw_headers()
-        self.draw_rows()
-        self._composite_images()
-        self.save_image(output_path)
+        if self.data:
+            self.create_image()
+            self.draw_headers()
+            self.draw_rows()
+            self._composite_images()
+            self.save_image(output_path)
+        else:
+            print("NO DATA")
 
     def _get_cells_content_width(self) -> dict:
         rows: list[list] = self.rows + [self.cols]
@@ -270,6 +273,5 @@ class TableImageGenerator:
                     cells_content_width[i] *= self.letter_width
         else:
             cells_content_width = [self.settings.cell_width] * len(self.cols)
-        print(self.is_adaptive_width)
 
         return cells_content_width
