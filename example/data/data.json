@@ -1,17 +1,17 @@
 {
     "tableName": "top 100 player stats",
-    "headers": ["top", "player", "kills", "kd", "time", "long kill", "player stats"],
-    "colsSettings": [
-        {"colId": 0, "maxWidth": 100, "minWidth": 100, "maxHeight": 100, "minHeight": 100, "fontSize": 100, "textAlign": "center"},
-        {"colId": 1, "maxWidth": 200, "minWidth": 150, "maxHeight": 100, "minHeight": 100, "fontSize": 100, "textAlign": "left"},
-        {"colId": 2, "maxWidth": 100, "minWidth": 80,  "maxHeight": 100, "minHeight": 100, "fontSize": 100, "textAlign": "center"},
-        {"colId": 3, "maxWidth": 100, "minWidth": 80,  "maxHeight": 100, "minHeight": 100, "fontSize": 100, "textAlign": "center"},
-        {"colId": 4, "maxWidth": 120, "minWidth": 100, "maxHeight": 100, "minHeight": 100, "fontSize": 100, "textAlign": "center"},
-        {"colId": 5, "maxWidth": 150, "minWidth": 120, "maxHeight": 100, "minHeight": 100, "fontSize": 100, "textAlign": "center"},
-        {"colId": 6, "maxWidth": 250, "minWidth": 200, "maxHeight": 100, "minHeight": 100, "fontSize": 100, "textAlign": "left"}
-    ],
-    "data": [
-        ["1", "MybestNickName", "14/88", "1.1", "90h", "1000m", "TOPC 52% (4449 hits)"],
+    "header": ["top", "player", "kills", "kd", "time", "long kill", "player stats"],
+    "settings": {
+        "cols": [{"colId": 0, "maxWidth": 100, "minWidth": 100, "maxHeight": 100, "minHeight": 100, "fontSize": 100, "textAlign": "center"},
+                {"colId": 1, "maxWidth": 200, "minWidth": 150, "maxHeight": 100, "minHeight": 100, "fontSize": 100, "textAlign": "left"},
+                {"colId": 2, "maxWidth": 100, "minWidth": 80,  "maxHeight": 100, "minHeight": 100, "fontSize": 100, "textAlign": "center"},
+                {"colId": 3, "maxWidth": 100, "minWidth": 80,  "maxHeight": 100, "minHeight": 100, "fontSize": 100, "textAlign": "center"},
+                {"colId": 4, "maxWidth": 120, "minWidth": 100, "maxHeight": 100, "minHeight": 100, "fontSize": 100, "textAlign": "center"},
+                {"colId": 5, "maxWidth": 150, "minWidth": 120, "maxHeight": 100, "minHeight": 100, "fontSize": 100, "textAlign": "center"},
+                {"colId": 6, "maxWidth": 250, "minWidth": 200, "maxHeight": 100, "minHeight": 100, "fontSize": 100, "textAlign": "left"}
+        ]
+    },
+    "data": [["1", "MybestNickName", "14/88", "1.1", "90h", "1000m", "TOPC 52% (4449 hits)"],
         ["2", "GamingPro", "12/75", "1.0", "80h", "900m", "TOPC 48% (3999 hits)"],
         ["3", "EpicPlayer", "10/60", "0.9", "70h", "800m", "TOPC 45% (3499 hits)"],
         ["4", "CoolGuy", "9/55", "0.8", "65h", "750m", "TOPC 42% (3099 hits)"],
