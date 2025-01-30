@@ -197,13 +197,3 @@ generator.generate_table_image("output_table.png")
 ## **License**
 
 This project is open-source and available under the Apache License.
-
----
-
-## **Contributing**
-
-Contributions are welcome! Please open an issue or submit a pull request for any improvements or bug fixes.
-
----
-
-This `README.md` provides a comprehensive overview of the project, its features, and usage instructions. You can copy and paste it directly into your project repository.
